@@ -1,5 +1,4 @@
 # Java-Algorithms
-Java Algorithms Learning Repository
 This repository contains a collection of Java algorithms and data structures, designed to help beginners and intermediate Java programmers improve their coding skills.
 
 Content
