@@ -1,0 +1,29 @@
+import java.util.*;
+import java.util.stream.*;
+
+public class Solution {
+    public static void miniMaxSum(List<Integer> arr) {
+        long minSum = Long.MAX_VALUE;
+        long maxSum = Long.MIN_VALUE;
+        long totalSum = arr.stream().mapToLong(Integer::longValue).sum();
+        for (int i = 0; i < arr.size(); i++) {
+            long currentSum = totalSum - arr.get(i);
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+            if (currentSum < minSum) {
+                minSum = currentSum;
+            }
+        }
+        System.out.println(minSum + " " + maxSum);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> arr = IntStream.range(0, 5)
+                .mapToObj(i -> scanner.nextInt())
+                .collect(Collectors.toList());
+        miniMaxSum(arr);
+        scanner.close();
+    }
+}
