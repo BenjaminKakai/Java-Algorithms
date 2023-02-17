@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = scanner.nextInt();
+        List<Integer> grades = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            grades.add(scanner.nextInt());
+        }
+
+        List<Integer> roundedGrades = gradingStudents(grades);
+        for (int grade : roundedGrades) {
+            System.out.println(grade);
+        }
+    }
+
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+        List<Integer> result = new ArrayList<>(grades.size());
+        for (int grade : grades) {
+            if (grade < 38) {
+                result.add(grade);
+            } else {
+                int nextMultipleOfFive = (grade / 5 + 1) * 5;
+                if (nextMultipleOfFive - grade < 3) {
+                    result.add(nextMultipleOfFive);
+                } else {
+                    result.add(grade);
+                }
+            }
+        }
+        return result;
+    }
+}
