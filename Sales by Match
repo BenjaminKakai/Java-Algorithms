@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    // Complete the sockMerchant function below.
+    static int sockMerchant(int n, int[] ar) {
+        int[] sockCount = new int[101]; // maximum sock color is 100
+        for (int i = 0; i < n; i++) {
+            sockCount[ar[i]]++;
+        }
+        int pairs = 0;
+        for (int i = 0; i < sockCount.length; i++) {
+            pairs += sockCount[i] / 2;
+        }
+        return pairs;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        int[] ar = new int[n];
+
+        String[] arItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        for (int i = 0; i < n; i++) {
+            int arItem = Integer.parseInt(arItems[i]);
+            ar[i] = arItem;
+        }
+
+        int result = sockMerchant(n, ar);
+
+        System.out.println(String.valueOf(result));
+
+        bufferedReader.close();
+    }
+}
