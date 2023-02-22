@@ -1,0 +1,87 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+class Result {
+
+    public static String dayOfProgrammer(int year) {
+        int day = 256;
+        String date = "";
+
+        // Calculate the number of days in the year based on the calendar system
+        int daysInYear = 0;
+        if (year < 1918) {
+            if (year % 4 == 0) {
+                daysInYear = 366; // Julian leap year
+            } else {
+                daysInYear = 365; // Julian non-leap year
+            }
+        } else if (year == 1918) {
+            daysInYear = 365 - 13; // Special case for 1918
+        } else {
+            if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+                daysInYear = 366; // Gregorian leap year
+            } else {
+                daysInYear = 365; // Gregorian non-leap year
+            }
+        }
+
+        // Calculate the date of the 256th day of the year
+        int daysPassed = 0;
+        int month = 1;
+        while (daysPassed + getDaysInMonth(month, year) <= day) {
+            daysPassed += getDaysInMonth(month, year);
+            month++;
+        }
+        int remainingDays = day - daysPassed;
+        date = String.format("%02d.%02d.%04d", remainingDays, month, year);
+        return date;
+    }
+
+    // Helper function to get the number of days in a given month and year
+    private static int getDaysInMonth(int month, int year) {
+        int days = 0;
+        if (month == 2) {
+            if (year < 1918) {
+                if (year % 4 == 0) {
+                    days = 29; // Julian leap year
+                } else {
+                    days = 28; // Julian non-leap year
+                }
+            } else if (year == 1918) {
+                days = 28 - 13; // Special case for 1918
+            } else {
+                if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+                    days = 29; // Gregorian leap year
+                } else {
+                    days = 28; // Gregorian non-leap year
+                }
+            }
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+            days = 30;
+        } else {
+            days = 31;
+        }
+        return days;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int year = Integer.parseInt(bufferedReader.readLine().trim());
+
+        String result = Result.dayOfProgrammer(year);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
