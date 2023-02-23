@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class Solution {
+    public static int migratoryBirds(List<Integer> arr) {
+        Map<Integer, Integer> sightings = new HashMap<>();
+        for (int bird : arr) {
+            if (sightings.containsKey(bird)) {
+                sightings.put(bird, sightings.get(bird) + 1);
+            } else {
+                sightings.put(bird, 1);
+            }
+        }
+        int mostFrequent = 0;
+        int highestFrequency = 0;
+        for (Map.Entry<Integer, Integer> entry : sightings.entrySet()) {
+            int bird = entry.getKey();
+            int frequency = entry.getValue();
+            if (frequency > highestFrequency || (frequency == highestFrequency && bird < mostFrequent)) {
+                mostFrequent = bird;
+                highestFrequency = frequency;
+            }
+        }
+        return mostFrequent;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        List<Integer> birdSightings = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            birdSightings.add(scanner.nextInt());
+        }
+        int mostFrequentBird = migratoryBirds(birdSightings);
+        System.out.println(mostFrequentBird);
+    }
+}
