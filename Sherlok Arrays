@@ -1,0 +1,41 @@
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Result {
+
+    public static String balancedSums(List<Integer> arr) {
+        int n = arr.size();
+        int leftSum = 0, rightSum = 0;
+        for (int i = 0; i < n; i++) {
+            rightSum += arr.get(i);
+        }
+        for (int i = 0; i < n; i++) {
+            rightSum -= arr.get(i);
+            if (leftSum == rightSum) {
+                return "YES";
+            }
+            leftSum += arr.get(i);
+        }
+        return "NO";
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int T = scanner.nextInt();
+        scanner.nextLine();
+        for (int t = 0; t < T; t++) {
+            int n = scanner.nextInt();
+            List<Integer> arr = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                arr.add(scanner.nextInt());
+            }
+            String result = Result.balancedSums(arr);
+            System.out.println(result);
+        }
+        scanner.close();
+    }
+}
