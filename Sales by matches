@@ -1,0 +1,49 @@
+import java.util.*;
+
+public class SockMerchant {
+    public static int sockMerchant(int n, List<Integer> ar) {
+        // Initialize a hash map to store the frequency of each color
+        Map<Integer, Integer> colors = new HashMap<>();
+
+        // Traverse the array and for each color
+        for (int i = 0; i < n; i++) {
+            int color = ar.get(i);
+            // If the color is not in the hash map, add it with frequency 1
+            if (!colors.containsKey(color)) {
+                colors.put(color, 1);
+            } else {
+                // Otherwise, increment the frequency
+                colors.put(color, colors.get(color) + 1);
+            }
+        }
+
+        // Count the number of pairs
+        int pairs = 0;
+        for (int frequency : colors.values()) {
+            pairs += frequency / 2;
+        }
+
+        return pairs;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read the number of socks in the pile
+        int n = scanner.nextInt();
+
+        // Read the colors of the socks in the pile
+        List<Integer> ar = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            ar.add(scanner.nextInt());
+        }
+
+        // Calculate the number of pairs
+        int pairs = sockMerchant(n, ar);
+
+        // Print the result
+        System.out.println(pairs);
+
+        scanner.close();
+    }
+}
