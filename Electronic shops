@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static int getMoneySpent(int[] keyboards, int[] drives, int b) {
+        int maxSpent = -1;
+        for (int keyboard : keyboards) {
+            for (int drive : drives) {
+                if (keyboard + drive <= b) {
+                    maxSpent = Math.max(maxSpent, keyboard + drive);
+                }
+            }
+        }
+        return maxSpent;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] bnm = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int b = Integer.parseInt(bnm[0]);
+
+        int n = Integer.parseInt(bnm[1]);
+
+        int m = Integer.parseInt(bnm[2]);
+
+        int[] keyboards = new int[n];
+
+        String[] keyboardsItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        for (int i = 0; i < n; i++) {
+            int keyboardsItem = Integer.parseInt(keyboardsItems[i]);
+            keyboards[i] = keyboardsItem;
+        }
+
+        int[] drives = new int[m];
+
+        String[] drivesItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        for (int i = 0; i < m; i++) {
+            int drivesItem = Integer.parseInt(drivesItems[i]);
+            drives[i] = drivesItem;
+        }
+
+        int moneySpent = getMoneySpent(keyboards, drives, b);
+
+        bufferedWriter.write(String.valueOf(moneySpent));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
